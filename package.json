@@ -1,0 +1,35 @@
+{
+  "name": "gulp",
+  "version": "0.1.0",
+  "description": "A guide for gulp",
+  "main": "main.js",
+  "publishConfig": {
+    "registry": "https://github.com/WeiFei365-Guide/gulp.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "node ./webpack/cmd.watch.js",
+    "w": "node ./webpack/cmd.watch.js",
+    "build": "node ./webpack/cmd.build.js",
+    "b": "node ./webpack/cmd.build.js"
+  },
+  "keywords": [
+    "gulp"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/WeiFei365-Guide/gulp.git"
+  },
+  "author": "Wei Fei",
+  "license": "ISC",
+  "devDependencies": {
+    "browserify": "^12.0.1",
+    "chalk": "^1.1.1",
+    "gulp": "^3.9.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^1.5.1",
+    "node-notifier": "^4.4.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}
