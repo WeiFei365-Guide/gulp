@@ -79,7 +79,16 @@ var logMsg = function (isError, msg) {
 	console.log(buildConsoleMsg(msg));
 };
 
+// 路径相关
+const PROJECT_PATH = path.resolve(__dirname, '../');
+const SourcePaths = {
+	PROJECT_PATH: PROJECT_PATH,
+	src: path.join(PROJECT_PATH, './', 'src')
+};
+
+
 module.exports = {
 	popMsg,
-	logMsg
+	logMsg,
+	SourcePaths
 };

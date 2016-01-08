@@ -17,6 +17,10 @@ var rename = require('gulp-rename');
 // custom utils
 var utils = require('./utils.js');
 
+// 全局导入的预编译工具
+var aliasify = require('aliasify');
+var aliasifyConfig = require('./aliasify.config.js');
+
 const DEST_DIR = './dest/';
 const DEST_FILE = 'patsnap.chart.js';
 
@@ -29,6 +33,11 @@ var isOnErrorState = false;
 
 
 /********************************** js file ***********************************/
+
+const browserifyConfig = {
+	//  允许生成 sourcemap 文件
+	debug: true
+};
 
 /**
  * 打包文件，包括：验证、转换等
@@ -44,29 +53,30 @@ function getJSPackage (gulp) {
 
 	return function () {
 
-		return browserify({ debug: false })
-	        //.transform(babelify)
-	        .require('./src/main.js', { entry: true })
-	        .bundle(function(err,bff){
-	            if (bff) {
-	                // 避免一直弹窗
-	                isOnErrorState && utils.popMsg(isOnErrorState = false);
-	            }
+		return browserify(browserifyConfig)
+				.transform(aliasify, aliasifyConfig)
+				//.transform(babelify)
+				.require('./src/main.js', { entry: true })
+		        .bundle(function(err, bff){
+		            if (bff) {
+		                // 避免一直弹窗
+		                isOnErrorState && utils.popMsg(isOnErrorState = false);
+		            }
 
-	            utils.logMsg(false, {
-	                state: '1',
-	                name: 'javascript',
-					operator: '2'
-	            });
-	        })
-	        .on("error", function (err) {
-	            utils.logMsg(true, err);
-	            this.emit('end');
-	            // 避免一直弹窗
-	            !isOnErrorState && utils.popMsg(isOnErrorState = true, err);
-	        })
-	        .pipe(source(DEST_FILE))
-	        .pipe(gulp.dest(DEST_DIR));
+		            utils.logMsg(false, {
+		                state: '1',
+		                name: 'javascript',
+						operator: '2'
+		            });
+		        })
+		        .on("error", function (err) {
+		            utils.logMsg(true, err);
+		            this.emit('end');
+		            // 避免一直弹窗
+		            !isOnErrorState && utils.popMsg(isOnErrorState = true, err);
+		        })
+		        .pipe(source(DEST_FILE))
+		        .pipe(gulp.dest(DEST_DIR));
 	};
 }
 /**
@@ -84,8 +94,8 @@ function uglifyJSPackage (gulp) {
 	return function () {
 
 		return gulp.src(path.join(DEST_DIR, DEST_FILE))
-			// 初始化
-			.pipe(sourcemaps.init())
+			// 初始化，并读入 browserify 生成的 sourcemap 文件
+			.pipe(sourcemaps.init({ loadMaps: true }))
 	        .pipe(uglify())
 	        .pipe(rename({ extname: '.min.js' }))
 			// 生成 sourcemap 文件
@@ -109,7 +119,7 @@ gulp.task(buildTasks[buildTasks.length - 1],
 
 
 gulp.task('build', buildTasks);
-gulp.task('watch', function() {
+gulp.task('watch', function () {
     return gulp.watch(allGlob, watchTasks);
 });
 module.exports = {

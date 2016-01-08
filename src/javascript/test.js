@@ -1,5 +1,8 @@
 'use strict'
 
+var commUtils = require('commUtils');
+
+
 module.exports = function (name) {
-    console.log('Hello ' + name);
+    commUtils.printLog('Hello ' + name);
 };
