@@ -10,6 +10,8 @@ var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 // 压缩
 var uglify = require('gulp-uglify');
+// 对应生成压缩文件的 sourcemap 文件
+var sourcemaps = require('gulp-sourcemaps');
 //
 var rename = require('gulp-rename');
 // custom utils
@@ -82,8 +84,12 @@ function uglifyJSPackage (gulp) {
 	return function () {
 
 		return gulp.src(path.join(DEST_DIR, DEST_FILE))
+			// 初始化
+			.pipe(sourcemaps.init())
 	        .pipe(uglify())
 	        .pipe(rename({ extname: '.min.js' }))
+			// 生成 sourcemap 文件
+			.pipe(sourcemaps.write('./'))
 	        .pipe(gulp.dest(DEST_DIR));
 	};
 }
