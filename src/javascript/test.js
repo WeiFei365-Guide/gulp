@@ -2,7 +2,8 @@
 
 var commUtils = require('commUtils');
 
+const say = 'Hello ';
 
 module.exports = function (name) {
-    commUtils.printLog('Hello ' + name);
+    commUtils.printLog(say + name);
 };
