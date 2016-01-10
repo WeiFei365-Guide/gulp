@@ -56,11 +56,11 @@ Gulp 工程化使用向导。
 #### ```package.json``` 中的 *aliasify* 配置项的作用：
 
 允许在 require 或 import 一些常用的自定义导出时，省去路径，比如，在项目中有个 utils 导出，而且在项目中的很多地方会用到这个 utils，像这样：
-	
+
 	```
 	var utils = require('../../utils.js');
 	```
-	
+
 当配置了 aliasify 后，只需要在 ```webpack/aliasify.config.js``` 文件中进行配置，然后这样使用：
 
 	```
@@ -75,7 +75,8 @@ Gulp 工程化使用向导。
 
 ## Futures
 
-1. 引入
+1. 引入 watchify 加快打包速度；
+2. 支持 CSS 打包；
 
 
 ## 相关参考
