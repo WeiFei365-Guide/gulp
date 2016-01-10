@@ -44,6 +44,13 @@ Gulp 工程化使用向导。
 
 * 根据你的项目需求，修改 ```webpack/gulpfile.js``` 文件中的内容。
 
+* 命令行中进入到你的项目根目录，输入以下命令 ```npm run b``` 打包；还支持以下的命令：
+
+	* ```npm run watch``` 实时监控代码的更改，并打包；
+	* ```npm run w``` 等同于 ```npm run watch```
+	* ```npm run build``` 直接一次性打包；
+	* ```npm run b``` 等同于 ```npm run build```
+
 ## 详细说明
 
 #### ```package.json``` 中的 *aliasify* 配置项的作用：
@@ -64,6 +71,11 @@ Gulp 工程化使用向导。
 #### ```gulpfile.js``` 中的 javascript task
 
 详细说明参考 ```getJSPackage``` 函数的注释说明；
+
+
+## Futures
+
+1. 引入
 
 
 ## 相关参考
