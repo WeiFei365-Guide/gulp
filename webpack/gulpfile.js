@@ -4,10 +4,15 @@
 var gulp = require('gulp');
 // 实现能在浏览器端像 node 后端一样使用模块化
 var browserify = require('browserify');
+
 // 兼容 gulp 与 node 中的流，将常规流转换为包含 Stream 的 vinyl 对象
 var source = require('vinyl-source-stream');
 // 将 vinyl 对象内容中的 Stream 转换为 Buffer
 var buffer = require('vinyl-buffer');
+
+// gulp 插件错误处理
+var plumber = require('gulp-plumber');
+
 // 压缩
 var uglify = require('gulp-uglify');
 // 对应生成压缩文件的 sourcemap 文件
@@ -92,13 +97,12 @@ function getJSPackage (gulp, opts) {
 				!isOnErrorState && utils.popMsg(isOnErrorState = true, err);
 			});
 
-		// 判断是否需要对流进行转换，这取决于后面用到插件是否兼容常规流
-		if (!opts.notSourcemap || !opts.notUglify) {
-			b = b.pipe(source(DEST_FILE));
-			b = b.pipe(buffer());
-		} else {
-			b = b.pipe(gulp.src(DEST_FILE));
-		}
+		// 转换 browserify 中的常规流为 gulp 中支持的流
+		b = b.pipe(source(DEST_FILE));
+		b = b.pipe(buffer());
+
+		// 防止 gulp 插件出错时导致整个进程退出
+		b = b.pipe(plumber());
 
 		// 生成 sourcemap 映射文件；起始点 ===>>>
 		if (!opts.notSourcemap) {
@@ -138,7 +142,6 @@ module.exports = {
         gulp.start('watch');
     },
     build: function () {
-
         gulp.start('build');
     }
 };
