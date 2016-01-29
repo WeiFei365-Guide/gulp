@@ -12,7 +12,7 @@ var utils = require('./utils.js');
 module.exports = {
 
     aliases: {
-        'commUtils': path.join(utils.SourcePaths.src, 'javascript', 'utils', 'utils.common.js')
+        'commUtils': path.join(utils.SourcePaths.src, 'scripts', 'utils', 'utils.common.js')
     },
     // no debugger msg
     verbose: false
