@@ -1,4 +1,4 @@
 'use strict'
 
 
-require('./javascript/test.js')('Gulp');
+require('./scripts/test.js')('Gulp');
