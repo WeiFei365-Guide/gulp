@@ -4,7 +4,7 @@
   "description": "A guide for gulp",
   "main": "main.js",
   "publishConfig": {
-    "registry": "https://github.com/WeiFei365-Guide/gulp.git"
+    "registry": "https://github.com/WeiFei365-ls/gulp.git"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -18,7 +18,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/WeiFei365-Guide/gulp.git"
+    "url": "https://github.com/WeiFei365-ls/gulp.git"
   },
   "author": "Wei Fei",
   "license": "ISC",
